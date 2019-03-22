@@ -6,26 +6,21 @@
 # By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
 
 def run
-  sum_of_even_fib_up_to(4_000_000)
+  sum_of_fibs_up_to(4_000_000)
 end
 
-def sum_of_even_fib_up_to(max)
-  fibs_up_to(max).select(&:even?).reduce(:+)
-end
+def sum_of_fibs_up_to(max)
+  n1, n2 = 1, 1
+  sum = 0
 
-def fibs_up_to(num)
-  return [] if num <= 1
-  return [1] if num == 2
-
-  arr = [1, 2]
- 
-  while arr[-1] + arr[-2] < num
-    arr << arr[-1] + arr[-2]
+  while sum < max
+    next_fib = n1 + n2
+    sum += next_fib if next_fib.even?
+    n1, n2 = n2, next_fib
   end
-
-  arr
+  
+  sum
 end
-
 
 if __FILE__ == $0 
   puts run
