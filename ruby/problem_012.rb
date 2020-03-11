@@ -30,10 +30,42 @@ class TriangleNum
   end
 end
 
+class Divisors
+  attr_reader :value
+
+  def initialize(value)
+    @value = value
+  end
+
+  def list
+    return [value] if value <= 1
+    lows = [1]
+    highs = [value]
+
+    (2..(value/2)).each do |low|
+      break if low >= highs.first
+
+      if value % low == 0
+        lows << low
+        highs.unshift(value/low)
+      end
+    end
+
+    lows + highs
+  end
+end
 
 def run
-  puts TriangleNum.new(7).value
-  puts TriangleNum.new(8).value
+  count = 1
+  divisors = []
+
+  begin
+    triangle_num = TriangleNum.new(count).value
+    divisors = Divisors.new(triangle_num).list
+    count +=1
+  end until divisors.length > 500
+
+  puts triangle_num
 end
 
 
