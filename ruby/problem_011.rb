@@ -49,7 +49,7 @@ class Grid
     grid.each_index do |row|
       grid[row].each_index do |col|
         from = [row, col]
-        products = [up(*from), down(*from), left(*from), right(*from), down_left(*from), down_right(*from)]
+        products = [down(*from), left(*from), down_left(*from), down_right(*from)]
         local_largest = products.compact.max || 0
         largest = [largest, local_largest].max
       end
@@ -60,18 +60,6 @@ class Grid
 
 
   private
-
-  #def up(row, col)
-    ##puts "[#{row}, #{col}]"
-    #return if row - prod_length < 0
-    #val = 1
-    #prod_length.times {|n| val *= grid[row - n][col]}
-    #val
-    ##[0..prod_length].reduce(1) {|acc, n| acc *= grid[row - n][col]}
-  #end
- def up(row, col)
-
- end
 
   def down(row, col)
     return if row + prod_length > row_count
@@ -85,9 +73,6 @@ class Grid
     val = 1
     prod_length.times {|n| val *= grid[row][col - n]}
     val
-  end
-
-  def right(row, col)
   end
 
   def down_left(row, col)
